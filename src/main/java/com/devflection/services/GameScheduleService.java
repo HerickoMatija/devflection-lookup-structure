@@ -17,25 +17,13 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 @Service
 public class GameScheduleService {
 
-    private volatile Map<NBATeam, List<NBAGame>> gameLookupStructure;
+    private Map<NBATeam, List<NBAGame>> gameLookupStructure;
 
-    public List<NBAGame> getRegularSeasonGamesForTeam(NBATeam team) {
-        initLookupStructureIfNeeded();
-
-        return gameLookupStructure.get(team);
+    public GameScheduleService() {
+        initializeLookup();
     }
 
-    private void initLookupStructureIfNeeded() {
-        if (gameLookupStructure == null) {
-            createLookupStructure();
-        }
-    }
-
-    private synchronized void createLookupStructure() {
-        if (gameLookupStructure != null) {
-            return;
-        }
-
+    private void initializeLookup() {
         List<NBAGame> games = parseGameScheduleFile();
 
         Map<NBATeam, List<NBAGame>> lookupStructure = new HashMap<>();
@@ -50,6 +38,10 @@ public class GameScheduleService {
         }
 
         gameLookupStructure = lookupStructure;
+    }
+
+    public List<NBAGame> getRegularSeasonGamesForTeam(NBATeam team) {
+        return gameLookupStructure.get(team);
     }
 
     // This is a mock method that in our case uses an example list of games in our resources folder,
