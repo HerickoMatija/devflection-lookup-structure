@@ -10,5 +10,11 @@ One branch represents the on-request model, the other on-startup model.
 To start either application you can do
 
 ```bash
-make run
+./mvnw spring-boot:run
+```
+
+or if you are on a Windows machine
+
+```bash
+./mvnw.cmd spring-boot:run
 ```
