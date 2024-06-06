@@ -9,6 +9,6 @@ This project is implemented in two branches representing the two options we disc
 One branch represents the on-request model, the other on-startup model.
 To start either application you can do
 
-"""make
-make run
-"""
+    ```make
+    make run
+    ```
